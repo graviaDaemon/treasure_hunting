@@ -1,7 +1,7 @@
 ; Include the Hunt class as well as the Props class
-#Include Hunt.ahk
-#Include Props.ahk
-#Include GuiSetup.ahk
+#Include <Hunt>
+#Include <Props>
+#Include <GuiSetup>
 
 ; ########## START: Basic Setup ##########
 
@@ -18,11 +18,11 @@ CreateGui(myP)
 ; Then it sets the size and direction of the slices
 ; Then it will intialize the class which will draw a whole new item
 ; And calls the "Draw" method. Passing in the previous gui
-global huntDisplay := Hunt(myP)
-
 Draw(b, bparam) {
     if myP.Drawn
         huntDisplay.Clear(guiWindow)
+
+    global huntDisplay := Hunt(myP)
     
     huntDisplay.Draw()
 }
@@ -41,7 +41,7 @@ Clear(b, bparam) {
 ; Sets the size based on the dropdown value, which in the Props class sets the right sizes
 SetSize(db, dbparams) {
     sizes := [
-        [4096, 2000],
+        [myP.mapSize, 2000],
         [1999, 1000],
         [999, 500],
         [499, 200],
@@ -53,8 +53,9 @@ SetSize(db, dbparams) {
         size := sizes[db.Value]
         myP.SetSize(size[1], size[2])
     } else {
-        myP.SetSize(0, 0)
+        myP.SetSize(4096, 2000)
     }
+    return
 }
 
 ; Sets the direction based on the dropdown value, which in the Props class sets the right rotation
@@ -67,7 +68,7 @@ SetDirection(db, dbparam) {
     } else {
         myP.SetDirection(0)
     }
-    
+    return
 }
 
 ; Based on the map size dropdown value, this sets the map size, and thus the tile size in the props class
@@ -80,8 +81,10 @@ ChangeTileSize(db, dbparams) {
     } else {
         myP.SetTileSize(4096)
     }
+    return
 }
 
+; Sets the screen size based on the input fields in the settings tab
 ChangeScreenSize(tb, tbparams) {
     if (IsNumber(tb.Value)) {
         myP.SetScreenSize(tb.Value)
@@ -89,13 +92,20 @@ ChangeScreenSize(tb, tbparams) {
     } else{
         MsgBox "Please input a number"
     }
+    return
 }
 
+; Sets the new color for the large pie based on the input field in the settings tab
 ChangeLargePieColor(eb, ebparams) {
-    myP.SetLargePieColor(eb.Value)
+    if StrLen(eb.Value) = 6
+        myP.SetLargePieColor(eb.Value)
+    return
 }
 
+; Sets the new color for the small pie based on the input field in the settings tab
 ChangeSmallPieColor(eb, ebparams) {
-    myP.SetSmallPieColor(eb.Value)
+    if StrLen(eb.Value) = 6
+        myP.SetSmallPieColor(eb.Value)
+    return
 }
 ; ########## END: Methods ##########

@@ -64,7 +64,7 @@ StartDrawGDIP() {
 }
 
 ; Cleanup after drawing
-EndDrawGDIP(xPos, yPos) {
+EndDrawGDIP() {
     global
     UpdateLayeredWindow(hwnd, hdc, 0, 0, Width, Height)
 
@@ -79,8 +79,8 @@ EndDrawGDIP(xPos, yPos) {
 
 ; Clear the drawing from the board without removing the GUI
 ClearDrawGDIP(guiWindow) {
-    guiWindow.Destroy()
     Gdip_GraphicsClear(graphics)
+    guiWindow.Destroy()
 }
 
 ; Exit the program when GDI+ has been started

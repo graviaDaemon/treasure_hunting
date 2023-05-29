@@ -1,20 +1,26 @@
+#Include <GuiSetup>
 ; A basic properties object. This class will hold all the properties required for the drawings on screen
 class Props {
-    sizeLargePie := 4096 ; radius and width of the larger pie slice
-    sizeSmallPie := 2000 ; radius and width of the smaller pie slice
-    mapSize := 4096
-    screenSize := 1000
-    tileSize := this.screenSize / this.mapSize ; 4.096 tiles per pixel, means that the pixel size per tile is 0.24414
+    ;#region Pie properties
+    sizeLargePie := ((1000/4096) * 4096) * 2 ; diameter and width of the larger pie slice
+    sizeSmallPie := ((1000/4096) * 2000) * 2 ; diameter and width of the smaller pie slice
     pieRadius := 0 ; The start rotation will always face north, so -120 degrees is when the pie slice faces north
+    largePieColorString := "000000"
+    smallPieColorString := "FFFFFF"
+    largePieColorHex := this.ParseToHex("0xFF000000")
+    smallPieColorHex := this.ParseToHex("0xFFffffff")
+    ;#endregion
+
+    ;#region Map Properties
+    mapSize := 4096
+    screenSize := 1000 ; height and width of the drawing screen
+    tileSize := 1000 / 4096 ; 4.096 tiles per pixel, means that the pixel size per tile is 0.24414
+    
     xPosition := 0 ; double
     yPosition := 0 ; double
-    Width := this.screenSize ; widht of the drawing screen
-    Height := this.screenSize ; height of the drawing screen
-
-    largePieColor := "000000"
-    smallPieColor := "ffffff"
-    smallPieColorNum := 0
-    Drawn := false
+    ;#endregion
+    
+    Drawn := false ; the property that makes the code check if there was already someting drawn or not
     ; The __New() constructor doesn't do much, but we have to include it
     __New() { 
 
@@ -26,9 +32,7 @@ class Props {
     */
     SetScreenSize(w) {
         this.screenSize := w
-        this.Width := this.screenSize
-        this.Height := this.screenSize
-        requestGui["InfoSection_1_value"].Text := this.Width " x" this.Height
+        requestGui["InfoSection_1_value"].Text := this.screenSize " x" this.screenSize
     }
 
     SetTileSize(size) {
@@ -68,14 +72,25 @@ class Props {
     }
 
     SetLargePieColor(color) {
-        this.largePieColor := color
-        requestgui["InfoSection_9_value"].Text := "#" color
-        requestgui["InfoSection_9_value"].SetFont("c" color)
+        this.largePieColorString := color
+        this.largePieColorHex := 0xFF000000 | this.ParseToHex(color)
+        requestgui["InfoSection_9_value"].Text := "#" this.largePieColorString
+        requestgui["InfoSection_9_value"].SetFont("c" this.largePieColorString)
     }
 
     SetSmallPieColor(color) {
-        this.smallPieColor := color
-        requestGui["InfoSection_10_value"].Text := "#" color
-        requestGui["InfoSection_10_value"].SetFont("c" color)
+        this.smallPieColorString := color
+        this.smallPieColorHex := 0xFF000000 | this.ParseToHex(color)
+        requestGui["InfoSection_10_value"].Text := "#" this.smallPieColorString
+        requestGui["InfoSection_10_value"].SetFont("c" this.smallPieColorString)
+    }
+
+    ParseToHex(str) {
+        VarSetStrCapacity(&s, 66)
+        value := DllCall("msvcrt.dll\_wcstoui64", "Str", str, "UInt", 0, "UInt", 16, "CDECL Int64")
+        DllCall("msvcrt.dll\_i64tow", "Int64", value, "Str", s, "UInt", 10, "CDECL")
+        Return s
     }
 }
+
+; ff4b4b

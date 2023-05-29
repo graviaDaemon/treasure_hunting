@@ -44,12 +44,10 @@ Happy hunting!
 
 # Changelog (based on commits)
 
-### v1.0.2-NoRelease
-- Added comments to all the methods
-- Refactored the Gui.Clear() parts that would double destroy a GUI, resulting in errors
-
 ### v2.0.0-Alpha1
 ## features
+- Added comments to all the methods
+- Refactored the Gui.Clear() parts that would double destroy a GUI, resulting in errors
 - removed the hotkey functions
 - added a GUI that handles all the old hotkey functions
 - added tabs to the GUI
@@ -61,3 +59,12 @@ Happy hunting!
 
 ## bugfixes
 - fixed an issue where drawing was only half the size it was supposed to be
+
+### v2.0.1-Alpha1
+#### Features
+- Added the color picker implementation
+- optimized the default settings
+
+#### Bugfixes
+- fixed an issue where the default settings would result in everything being drawn out of proportions
+- Fixed an issue where the colors would result in errors

@@ -64,7 +64,7 @@ CreateGui(props) {
         ; Info tab info_1
         requestGui.Add("Text", "vInfoSection_1 XS Section w150", "External Map Size:")
         requestGui["InfoSection_1"].SetFont("underline")
-        requestGui.Add("Text", "vInfoSection_1_value YS w200", props.Width " x" props.Height)
+        requestGui.Add("Text", "vInfoSection_1_value YS w200", props.screenSize " x" props.screenSize)
         requestGui["InfoSection_1_value"].Opt("+Redraw")
 
         requestGui.Add("Text", "vInfoSection_2 XS Section w150", "Ingame Map Size:")
@@ -104,15 +104,15 @@ CreateGui(props) {
 
         requestGui.Add("Text", "vInfoSection_9 XS Section w150", "Large pie color: ")
         requestGui["InfoSection_9"].SetFont("underline")
-        requestGui.Add("Text", "vInfoSection_9_value YS w200", "#" props.largePieColor)
+        requestGui.Add("Text", "vInfoSection_9_value YS w200", "#" props.largePieColorString)
         requestGui["InfoSection_9_value"].Opt("+Redraw")
-        requestGui["InfoSection_9_value"].SetFont(props.largePieColor = "ffffff" ? "c000000" : "c" props.largePieColor)
+        requestGui["InfoSection_9_value"].SetFont(props.largePieColorString = "FFFFFF" or "ffffff" ? "c000000" : "c" props.largePieColorString)
 
         requestGui.Add("Text", "vInfoSection_10 XS Section w150", "Small pie color: ")
         requestGui["InfoSection_10"].SetFont("underline")
-        requestGui.Add("Text", "vInfoSection_10_value YS w200", "#" props.smallPieColor)
+        requestGui.Add("Text", "vInfoSection_10_value YS w200", "#" props.smallPieColorString)
         requestGui["InfoSection_10_value"].Opt("+Redraw")
-        requestGui["InfoSection_10_value"].SetFont(props.smallPieColor = "ffffff" ? "c000000" : "c" props.smallPieColor)
+        requestGui["InfoSection_10_value"].SetFont(props.smallPieColorString = "FFFFFF" or "ffffff" ? "c000000" : "c" props.smallPieColorString)
 
         ; Add text boxes to show the information of the various settings
         
@@ -149,9 +149,9 @@ CreateGui(props) {
                     "Choose3 YS vIngameMapSize_value w200",
                     ["1K", "2K", "4K", "8K", "16K", "32K"])
 
-        requestGui.Add("Text", "h25 w150 XS Section vScreenSizeSetting", "Set Screen Size: ")
-        requestGui.Add("Edit", "vEditBox h25 w200 YS")
-        requestGui.Add("UpDown", "vScreenSizeSetting_value Range0-32768", 1000)
+        requestGui.Add("Text", "h25 w150 XS Section vScreenSize", "Set Screen Size: ")
+        requestGui.Add("Edit", "vScreenSizeSetting_Text_value h25 w200 YS")
+        requestGui.Add("UpDown", "vScreenSizeSetting_Num_value Range0-32768", 1000)
 
         requestGui.Add("Text", "h25 w150 XS Section vLargePieColor", "Pick a color (Large pie): ")
         requestGui.Add("Edit", "vEditLargeColorBox h25 w200 YS", "000000")
@@ -186,9 +186,9 @@ CreateGui(props) {
             ; On change of this box, set the tile size anew
             requestGui["IngameMapSize_value"].OnEvent("Change", ChangeTileSize)
             ; On change of the text box, set the window size anew
-            requestGui["ScreenSizeSetting_value"].OnEvent("Change", ChangeScreenSize)
+            requestGui["ScreenSizeSetting_Num_value"].OnEvent("Change", ChangeScreenSize)
             ; or
-            requestGui["EditBox"].OnEvent("Change", ChangeScreenSize)
+            requestGui["ScreenSizeSetting_Text_value"].OnEvent("Change", ChangeScreenSize)
 
             ; OnChange of color box update the used color for the large pie
             requestGui["EditLargeColorBox"].OnEvent("Change", ChangeLargePieColor)
@@ -205,7 +205,7 @@ CreateGui(props) {
             ; Add an event handler for the clear button
             requestGui["Clear"].OnEvent("Click", Clear)
             ; Add an event handler for the exit button
-            requestGui["Exit"].OnEvent("Click", myP.Drawn ? ExitProgram : ExitWithoutGraphics)
+            requestGui["Exit"].OnEvent("Click", props.Drawn ? ExitProgram : ExitWithoutGraphics)
         
             ;#endregion
 

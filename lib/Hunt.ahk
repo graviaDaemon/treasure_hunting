@@ -1,4 +1,4 @@
-#Include GdipHelper.ahk
+#Include <GdipHelper>
 
 class Hunt {
 ; ########## START: Variables ##########
@@ -39,13 +39,11 @@ class Hunt {
 
         ; These three methods are the GDIP helper methods to startup the GDIP methods
         ; Which will actually allow us to draw on the screen
-        SetupGDIP(this.props.Width, this.props.Height)
+        SetupGDIP(this.props.screenSize, this.props.screenSize)
         StartDrawGDIP()
 
         ; Create the first brush for the smaller pie slice. Which we set to white now. 
-        ; TODO: Add dropdown option for the user to pick a color
-        pBrush := Gdip_CreatePen(0xffffffff, 3)
-
+        pBrush := Gdip_CreatePen(this.props.smallPieColorHex, 3)
         ; Draw the pie slice with the set parameters
         Gdip_DrawPie(
             graphics, ; The graphic to draw in 
@@ -73,12 +71,11 @@ class Hunt {
             this.props.pieRadius + -112.5, 
             45 ; This is the actual radius of the pie slice, 45 degrees because it's in 8 steps (see dropdown menu items for direction)
         )
-
         ; And here we delete the brush from memory, so we don't use that memory space anymore
-        Gdip_DeleteBrush(pBrush)
+        Gdip_DeletePen(pBrush)
 
         ; Repeat the same process as above here, but for the larger pie slice
-        pBrush := Gdip_CreatePen(0xff000000, 3)
+        pBrush := Gdip_CreatePen(this.props.largePieColorHex, 3)
         Gdip_DrawPie(
             graphics, 
             pBrush, 
@@ -89,11 +86,11 @@ class Hunt {
             this.props.pieRadius + -112.5,
             45
         )
-        Gdip_DeleteBrush(pBrush)
+        Gdip_DeletePen(pBrush)
 
         ; And here we stop the drawing process
         ; TODO: Add a dialog that restarts the program and removes any previous drawings
-        EndDrawGDIP(this.props.xPosition, this.props.yPosition)
+        EndDrawGDIP()
         return
     }
 
