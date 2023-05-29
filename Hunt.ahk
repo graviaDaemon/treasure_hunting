@@ -44,7 +44,7 @@ class Hunt {
 
         ; Create the first brush for the smaller pie slice. Which we set to white now. 
         ; TODO: Add dropdown option for the user to pick a color
-        pBrush := Gdip_CreatePen(0xfffffffff, 3)
+        pBrush := Gdip_CreatePen(0xffffffff, 3)
 
         ; Draw the pie slice with the set parameters
         Gdip_DrawPie(
@@ -62,8 +62,11 @@ class Hunt {
             ; by subtracting the radius from the yPosition.
             ; We also remove 8 tiles from the x position, to get to the center of the square on the external map
             this.props.yPosition - ((this.props.sizeSmallPie / 2) - (this.props.tileSize * 8)), 
-            this.props.sizeSmallPie, ; the smaller pie size is set here as the width
-            this.props.sizeSmallPie, ; the smaller pie size is set here as the height
+            ; the smaller pie size is set here as the width 
+            ; (times 2 because it draws this as diameter, instead of radius)
+            this.props.sizeSmallPie, 
+            ; the smaller pie size is set here as the height
+            this.props.sizeSmallPie, 
             ; The direction is set here where the pieRadius property is in steps of 45 degrees
             ; Whereas the -112.5 is to offset the rotation to the actual north point.
             ; This is because the 0 point of the DrawPie method is set to a horizontal position
@@ -95,7 +98,6 @@ class Hunt {
     }
 
     Clear(guiWindow) {
-        
         ClearDrawGDIP(guiWindow)
         return
     }

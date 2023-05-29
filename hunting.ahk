@@ -7,7 +7,7 @@
 
 ; START: Basic Variables
 myP := Props()
-CreateGui()
+CreateGui(myP)
 ; END: Basic Variables
 
 ; ########## END:   Basic Setup ##########
@@ -18,14 +18,12 @@ CreateGui()
 ; Then it sets the size and direction of the slices
 ; Then it will intialize the class which will draw a whole new item
 ; And calls the "Draw" method. Passing in the previous gui
+global huntDisplay := Hunt(myP)
+
 Draw(b, bparam) {
     if myP.Drawn
-        guiWindow.Destroy()
-
-    SetSize(requestGui["DistanceBox"].Value)
-    SetDirection(requestGui["DirectionBox"].Value)
-
-    global huntDisplay := Hunt(myP)
+        huntDisplay.Clear(guiWindow)
+    
     huntDisplay.Draw()
 }
 
@@ -41,7 +39,7 @@ Clear(b, bparam) {
 }
 
 ; Sets the size based on the dropdown value, which in the Props class sets the right sizes
-SetSize(value) {
+SetSize(db, dbparams) {
     sizes := [
         [4096, 2000],
         [1999, 1000],
@@ -51,8 +49,8 @@ SetSize(value) {
         [49, 20]
     ]
 
-    if (value <= sizes.Length) {
-        size := sizes[value]
+    if (db.Value <= sizes.Length) {
+        size := sizes[db.Value]
         myP.SetSize(size[1], size[2])
     } else {
         myP.SetSize(0, 0)
@@ -60,15 +58,16 @@ SetSize(value) {
 }
 
 ; Sets the direction based on the dropdown value, which in the Props class sets the right rotation
-SetDirection(value) {
+SetDirection(db, dbparam) {
     directions := [0, 45, 90, 135, 180, 225, 270, 315]
 
-    if (value <= directions.Length) {
-        direction := directions[value]
+    if (db.Value <= directions.Length) {
+        direction := directions[db.Value]
         myP.SetDirection(direction)
     } else {
         myP.SetDirection(0)
     }
+    
 }
 
 ; Based on the map size dropdown value, this sets the map size, and thus the tile size in the props class
@@ -81,5 +80,22 @@ ChangeTileSize(db, dbparams) {
     } else {
         myP.SetTileSize(4096)
     }
+}
+
+ChangeScreenSize(tb, tbparams) {
+    if (IsNumber(tb.Value)) {
+        myP.SetScreenSize(tb.Value)
+        myP.SetTileSize(myP.mapSize)
+    } else{
+        MsgBox "Please input a number"
+    }
+}
+
+ChangeLargePieColor(eb, ebparams) {
+    myP.SetLargePieColor(eb.Value)
+}
+
+ChangeSmallPieColor(eb, ebparams) {
+    myP.SetSmallPieColor(eb.Value)
 }
 ; ########## END: Methods ##########
