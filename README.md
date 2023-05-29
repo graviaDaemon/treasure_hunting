@@ -43,5 +43,7 @@ Happy hunting!
 - Recalculate tile sizes based on zoom levels
 
 # Changelog (based on commits)
+
+### v1.0.2-NoRelease
 - Added comments to all the methods
 - Refactored the Gui.Clear() parts that would double destroy a GUI, resulting in errors
