@@ -47,3 +47,17 @@ Happy hunting!
 ### v1.0.2-NoRelease
 - Added comments to all the methods
 - Refactored the Gui.Clear() parts that would double destroy a GUI, resulting in errors
+
+### v2.0.0-Alpha1
+## features
+- removed the hotkey functions
+- added a GUI that handles all the old hotkey functions
+- added tabs to the GUI
+    - how to
+    - info
+    - draw
+    - settings
+- added more settings, which allows for the selection of ingame map size, screen size,
+
+## bugfixes
+- fixed an issue where drawing was only half the size it was supposed to be
