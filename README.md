@@ -41,3 +41,7 @@ Happy hunting!
 - Remove the need for the external map mod entirely (if possible)
 - Add zoom option to the map
 - Recalculate tile sizes based on zoom levels
+
+# Changelog (based on commits)
+- Added comments to all the methods
+- Refactored the Gui.Clear() parts that would double destroy a GUI, resulting in errors
