@@ -27,3 +27,17 @@ The "Select map size" option is meant for when the map you're playing on is an a
 Sklotopolis plays at 2 4K maps and 1 2K map, so use the selection accordingly!
 
 Happy hunting!
+
+# Roadmap
+
+### General additions
+- Create tabs for the various sections (eg. drawing, settings, information)
+- Add information to the window, to show what the current settings are, and which message is displayed
+- Replace the dropdown selection with a "copy map line here" text box
+- Add color picker for the smaller and larger pie slice
+
+### Map related additions 
+- Incorporate own external map window (If possible) Maybe by using the Sklotopolis live map from browser
+- Remove the need for the external map mod entirely (if possible)
+- Add zoom option to the map
+- Recalculate tile sizes based on zoom levels
