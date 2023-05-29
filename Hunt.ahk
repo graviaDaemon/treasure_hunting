@@ -41,7 +41,6 @@ class Hunt {
         ; Which will actually allow us to draw on the screen
         SetupGDIP(this.props.Width, this.props.Height)
         StartDrawGDIP()
-        ClearDrawGDIP()
 
         ; Create the first brush for the smaller pie slice. Which we set to white now. 
         ; TODO: Add dropdown option for the user to pick a color
@@ -77,7 +76,6 @@ class Hunt {
 
         ; Repeat the same process as above here, but for the larger pie slice
         pBrush := Gdip_CreatePen(0xff000000, 3)
-
         Gdip_DrawPie(
             graphics, 
             pBrush, 
@@ -88,7 +86,6 @@ class Hunt {
             this.props.pieRadius + -112.5,
             45
         )
-
         Gdip_DeleteBrush(pBrush)
 
         ; And here we stop the drawing process
@@ -97,9 +94,9 @@ class Hunt {
         return
     }
 
-    Clear() {
+    Clear(guiWindow) {
         
-        ClearDrawGDIP()
+        ClearDrawGDIP(guiWindow)
         return
     }
 }

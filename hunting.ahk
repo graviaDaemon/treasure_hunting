@@ -13,6 +13,11 @@ CreateGui()
 ; ########## END:   Basic Setup ##########
 
 ; ########## START: Methods ##########
+; Upon clicking the "Draw" button, this method will be called
+; It checks if any previous drawing has been made, and destroys that
+; Then it sets the size and direction of the slices
+; Then it will intialize the class which will draw a whole new item
+; And calls the "Draw" method. Passing in the previous gui
 Draw(b, bparam) {
     if myP.Drawn
         guiWindow.Destroy()
@@ -24,13 +29,18 @@ Draw(b, bparam) {
     huntDisplay.Draw()
 }
 
+; Upon clicking the "Clear" button, this method will be called
+; It checks if any previous drawig has been made, and destroys that
+; Otherwise it will return a message saying there was no drawing made
 Clear(b, bparam) {
-    huntDisplay.Clear()
-    guiWindow.Destroy()
+    if myP.Drawn
+        huntDisplay.Clear(guiWindow)
+    else
+        MsgBox "Nothing was drawn yet, so nothing is cleared", "Warning"
+    return
 }
 
 ; Sets the size based on the dropdown value, which in the Props class sets the right sizes
-; TODO: Clean this up if possible. It looks like a LOT
 SetSize(value) {
     sizes := [
         [4096, 2000],
@@ -49,7 +59,7 @@ SetSize(value) {
     }
 }
 
-; TODO: Clean this up if possible. It looks like a LOT
+; Sets the direction based on the dropdown value, which in the Props class sets the right rotation
 SetDirection(value) {
     directions := [0, 45, 90, 135, 180, 225, 270, 315]
 
@@ -61,6 +71,7 @@ SetDirection(value) {
     }
 }
 
+; Based on the map size dropdown value, this sets the map size, and thus the tile size in the props class
 ChangeTileSize(db, dbparams) {
     sizes := [1024, 2048, 4096, 8192, 16384, 32768]
 

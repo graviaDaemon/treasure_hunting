@@ -1,5 +1,14 @@
 #Include Gdip.ahk
 
+/*
+    This entire file serves as assistance in setting up GDI+
+    Creating and destroying any drawings created
+*/
+
+/* 
+    This just adds the basics, namely startup GDI+ 
+    and set an Exit method that is called when GDI+ has not been able to start
+*/
 JustTheBasics() {
     global pToken := Gdip_Startup()
     ; Start GDI+
@@ -12,6 +21,9 @@ JustTheBasics() {
     return    
 }
 
+/* 
+    Setup all the GDI+ items, including the GUI window with the width and height given by the calling objects
+*/
 SetupGDIP(iWidth, iHeight) {
     global Width := iWidth
     global Height := iHeight
@@ -38,6 +50,9 @@ SetupGDIP(iWidth, iHeight) {
     return
 }
 
+/* 
+    Start the drawing of the given object including the Width and Height of the bitmap
+*/
 StartDrawGDIP() {
     global hbm := CreateDIBSection(Width, Height)
 
@@ -48,6 +63,7 @@ StartDrawGDIP() {
     global graphics := Gdip_GraphicsFromHDC(hdc)
 }
 
+; Cleanup after drawing
 EndDrawGDIP(xPos, yPos) {
     global
     UpdateLayeredWindow(hwnd, hdc, 0, 0, Width, Height)
@@ -61,10 +77,13 @@ EndDrawGDIP(xPos, yPos) {
     Gdip_DeleteGraphics(graphics)
 }
 
-ClearDrawGDIP() {
-    Gdip_GraphicsClear(graphics, 0x00000000)
+; Clear the drawing from the board without removing the GUI
+ClearDrawGDIP(guiWindow) {
+    guiWindow.Destroy()
+    Gdip_GraphicsClear(graphics)
 }
 
+; Exit the program when GDI+ has been started
 ExitProgram(ExitReason, ExitCode) {
     ; gdi+ may now be shutdown on exiting the program
     Gdip_Shutdown(pToken)
@@ -72,6 +91,7 @@ ExitProgram(ExitReason, ExitCode) {
     return
 }
 
+; Exit the program before any GDI+ has been started
 ExitWithoutGraphics(ExitReason, ExitCode) {
     ExitApp
     return
