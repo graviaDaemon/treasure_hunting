@@ -34,7 +34,7 @@ Happy hunting!
 - Create tabs for the various sections (eg. drawing, settings, information)
 - Add information to the window, to show what the current settings are, and which message is displayed
 - Replace the dropdown selection with a "copy map line here" text box
-- Add color picker for the smaller and larger pie slice
+- Add color picker for the smaller and larger pie slice (COMPLETE)
 
 ### Map related additions 
 - Incorporate own external map window (If possible) Maybe by using the Sklotopolis live map from browser
@@ -43,19 +43,6 @@ Happy hunting!
 - Recalculate tile sizes based on zoom levels
 
 # Changelog (based on commits)
-
-### v2.0.0-Alpha1
-## features
-- Added comments to all the methods
-- Refactored the Gui.Clear() parts that would double destroy a GUI, resulting in errors
-- removed the hotkey functions
-- added a GUI that handles all the old hotkey functions
-- added tabs to the GUI
-    - how to
-    - info
-    - draw
-    - settings
-- added more settings, which allows for the selection of ingame map size, screen size,
 
 ## bugfixes
 - fixed an issue where drawing was only half the size it was supposed to be
