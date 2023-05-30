@@ -1,29 +1,27 @@
 #Include <GuiSetup>
 ; A basic properties object. This class will hold all the properties required for the drawings on screen
 class Props {
-    ;#region Pie properties
-    sizeLargePie := ((1000/4096) * 4096) * 2 ; diameter and width of the larger pie slice
-    sizeSmallPie := ((1000/4096) * 2000) * 2 ; diameter and width of the smaller pie slice
-    pieRadius := 0 ; The start rotation will always face north, so -120 degrees is when the pie slice faces north
-    largePieColorString := "000000"
-    smallPieColorString := "FFFFFF"
-    largePieColorHex := this.ParseToHex("0xFF000000")
-    smallPieColorHex := this.ParseToHex("0xFFffffff")
-    ;#endregion
-
-    ;#region Map Properties
-    mapSize := 4096
-    screenSize := 1000 ; height and width of the drawing screen
-    tileSize := 1000 / 4096 ; 4.096 tiles per pixel, means that the pixel size per tile is 0.24414
-    
-    xPosition := 0 ; double
-    yPosition := 0 ; double
-    ;#endregion
-    
-    Drawn := false ; the property that makes the code check if there was already someting drawn or not
-    ; The __New() constructor doesn't do much, but we have to include it
     __New() { 
+        ;#region Pie properties
+        this.sizeLargePie := ((1000/4096) * 4096) * 2 ; diameter and width of the larger pie slice
+        this.sizeSmallPie := ((1000/4096) * 2000) * 2 ; diameter and width of the smaller pie slice
+        this.pieRadius := 0 ; The start rotation will always face north, so -120 degrees is when the pie slice faces north
+        this.largePieColorString := "000000"
+        this.smallPieColorString := "FFFFFF"
+        this.largePieColorHex := this.ParseToHex("0xFF000000")
+        this.smallPieColorHex := this.ParseToHex("0xFFffffff")
+        ;#endregion
 
+        ;#region Map Properties
+        this.mapSize := 4096
+        this.screenSize := 1000 ; height and width of the drawing screen
+        this.tileSize := 1000 / 4096 ; 4.096 tiles per pixel, means that the pixel size per tile is 0.24414
+
+        this.xPosition := 0 ; double
+        this.yPosition := 0 ; double
+        ;#endregion
+
+        this.Drawn := false ; the property that makes the code check if there was already someting drawn or not
     }
 
     /* 
