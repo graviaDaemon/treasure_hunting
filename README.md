@@ -31,8 +31,8 @@ Happy hunting!
 # Roadmap
 
 ### General additions
-- Create tabs for the various sections (eg. drawing, settings, information)
-- Add information to the window, to show what the current settings are, and which message is displayed
+- Create tabs for the various sections (eg. drawing, settings, information) (COMPLETE)
+- Add information to the window, to show what the current settings are, and which message is displayed (COMPLETE)
 - Replace the dropdown selection with a "copy map line here" text box
 - Add color picker for the smaller and larger pie slice (COMPLETE)
 
@@ -44,14 +44,46 @@ Happy hunting!
 
 # Changelog (based on commits)
 
-## bugfixes
-- fixed an issue where drawing was only half the size it was supposed to be
+## v2.0.3-Alpha1
+### Features
+- Made sure when a new color is set, the drawing would be redrawn with the new color
 
-### v2.0.1-Alpha1
-#### Features
+### Bugfixes
+- Fixed an issue where the selection of different size maps (1k, 2k, 4k, ...) would not resize the cone accordingly
+- Fixed an issue where the GUI would not be part of the external map, and as such would stay on top of the game when alt+tab back to game
+
+### Other updates
+- Refactored the code so the Gui eventhandlers have their own respective section
+
+## v2.0.2-Alpha1
+### Bugfixes
+- Fixed a bug where the default properties weren't being set properly
+- Fixed a bug where the default settings drew a too large pie slice on the first draw
+
+## v2.0.1-Alpha1
+### Features
 - Added the color picker implementation
 - optimized the default settings
 
-#### Bugfixes
-- fixed an issue where the default settings would result in everything being drawn out of proportions
+### Bugfixes
+- Fixed an issue where the default settings would result in everything being drawn out of proportions
 - Fixed an issue where the colors would result in errors
+
+## v2.0.0-Alpha1
+### Features
+- Removed the hotkey functions
+- Added a GUI that handles all the old hotkey functions
+- Added tabs to the GUI
+    - how to
+    - info
+    - draw
+    - settings
+- Added more settings, which allows for the selection of ingame map size, screen size, and colors
+
+### Bugfixes
+- Fixed an issue where the drawing was only half the size it was supposed to be
+
+v1.0.0-Alpha1
+### Initial release
+- Added a GUI that enables the choice of direction and distance 
+- Added the buttons for 'draw', 'clear', and 'exit'

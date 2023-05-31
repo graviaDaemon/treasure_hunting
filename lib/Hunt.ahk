@@ -17,7 +17,7 @@ class Hunt {
             WinActivate "Sklotopolis" ; Activate the window
             WinMove 0, 0 ; move the window to the x: 0, y: 0 coordinates
             CoordMode "Pixel", "Screen" ; Set the coordinate mode to search for pixels and find it on the entire screen
-            PixelSearch &Ox, &Oy, 0, 0, 1008, 1031, 0xff1493 ; Search for the pixel of the red dot (person)
+            PixelSearch &Ox, &Oy, 0, 0, 1008, 1031, 0xff1493
             this.props.SetXCoord(Ox) ; Set the X coordinates of the pixel
             this.props.SetYCoord(Oy) ; Set the Y coordinates of the pixel
         }
@@ -42,29 +42,28 @@ class Hunt {
         SetupGDIP(this.props.screenSize, this.props.screenSize)
         StartDrawGDIP()
 
+        guiWindow.Opt("+Parent" this.skloWindow)
+
         ; Create the first brush for the smaller pie slice. Which we set to white now. 
         pBrush := Gdip_CreatePen(this.props.smallPieColorHex, 3)
+
+        
+        
+
+        ; The y position is set here, minus the radius of the circle that is being drawn
+        ; I figured out that the pie slices are being cut from a circle
+        ; So I get the radius of said circle, and move the center of the circle to the actual y coordinate
+        ; by subtracting the radius from the yPosition.
+        ; We also remove 8 tiles from the x position, to get to the center of the square on the external map
+
         ; Draw the pie slice with the set parameters
         Gdip_DrawPie(
             graphics, ; The graphic to draw in 
             pBrush, ; The brush to use
-            ; The x position is set here, minus the radius of the circle that is being drawn
-            ; I figured out that the pie slices are being cut from a circle
-            ; So I get the radius of said circle, and move the center of the circle to the actual x coordinate
-            ; by subtracting the radius from the xPosition.
-            ; We also remove 8 tiles from the x position, to get to the center of the square on the external map
-            this.props.xPosition - ((this.props.sizeSmallPie / 2) - (this.props.tileSize * 8)), 
-            ; The y position is set here, minus the radius of the circle that is being drawn
-            ; I figured out that the pie slices are being cut from a circle
-            ; So I get the radius of said circle, and move the center of the circle to the actual y coordinate
-            ; by subtracting the radius from the yPosition.
-            ; We also remove 8 tiles from the x position, to get to the center of the square on the external map
-            this.props.yPosition - ((this.props.sizeSmallPie / 2) - (this.props.tileSize * 8)), 
-            ; the smaller pie size is set here as the width 
-            ; (times 2 because it draws this as diameter, instead of radius)
-            this.props.sizeSmallPie, 
-            ; the smaller pie size is set here as the height
-            this.props.sizeSmallPie, 
+            this.__GetAbsoluteCoord(this.props.xPosition), ; The calculated absolute x coordinate point
+            this.__GetAbsoluteCoord(this.props.yPosition), ; the calculated absolute y coordinate point
+            this.props.sizeSmallPie, ; the smaller pie size is set here as the width 
+            this.props.sizeSmallPie, ; the smaller pie size is set here as the height
             ; The direction is set here where the pieRadius property is in steps of 45 degrees
             ; Whereas the -112.5 is to offset the rotation to the actual north point.
             ; This is because the 0 point of the DrawPie method is set to a horizontal position
@@ -97,6 +96,15 @@ class Hunt {
     Clear(guiWindow) {
         ClearDrawGDIP(guiWindow)
         return
+    }
+
+    ; The position is set here, minus the radius of the circle that is being drawn
+    ; I figured out that the pie slices are being cut from a circle
+    ; So I get the radius of said circle, and move the center of the circle to the actual coordinate
+    ; by subtracting the radius from the axisPosition.
+    ; We also remove 8 tiles from the x position, to get to the center of the square on the external map
+    __GetAbsoluteCoord(axisCoord) {
+        return axisCoord - ((this.props.sizeSmallPie / 2) - (this.props.tileSize * 8))
     }
 }
 

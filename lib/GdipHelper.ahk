@@ -43,7 +43,7 @@ SetupGDIP(iWidth, iHeight) {
 
     global hwnd := WinExist("guiWindow")
     if hwnd {
-        WinMove -1920, 0
+        WinMove 0, 0
     }
     WinMove 
 
@@ -64,9 +64,11 @@ StartDrawGDIP() {
 }
 
 ; Cleanup after drawing
+; We update the layered window, espectially we move the positioning of the window so we can
+; place the drawing on the correct x and y coordinates
 EndDrawGDIP() {
     global
-    UpdateLayeredWindow(hwnd, hdc, 0, 0, Width, Height)
+    UpdateLayeredWindow(hwnd, hdc, -8, -31, Width, Height)
 
     SelectObject(hdc, obm)
 

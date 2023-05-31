@@ -2,9 +2,9 @@
     Create the GUI with all information and tabs here. 
     This method is being called before anything else, but after the props has been setup
 */
-CreateGui(props) {
+CreateGui(props, eventObj) {
     ; Create the GUI
-    global requestGui := Gui("MaxSize1000x1000 +Resize", "InputRequest")
+    global requestGui := Gui("MaxSize1000x1000 +Resize", "InputRequest", eventObj)
 
     ;#region GUI Controls
     ; Prepare the tab names, and their respective tab sections
@@ -184,26 +184,26 @@ CreateGui(props) {
             ;#region EventHandlers
         
             ; On change of this box, set the tile size anew
-            requestGui["IngameMapSize_value"].OnEvent("Change", ChangeTileSize)
+            requestGui["IngameMapSize_value"].OnEvent("Change", "ChangeTileSize")
             ; On change of the text box, set the window size anew
-            requestGui["ScreenSizeSetting_Num_value"].OnEvent("Change", ChangeScreenSize)
+            requestGui["ScreenSizeSetting_Num_value"].OnEvent("Change", "ChangeScreenSize")
             ; or
-            requestGui["ScreenSizeSetting_Text_value"].OnEvent("Change", ChangeScreenSize)
+            requestGui["ScreenSizeSetting_Text_value"].OnEvent("Change", "ChangeScreenSize")
 
             ; OnChange of color box update the used color for the large pie
-            requestGui["EditLargeColorBox"].OnEvent("Change", ChangeLargePieColor)
+            requestGui["EditLargeColorBox"].OnEvent("Change", "ChangeLargePieColor")
             ; OnChange of color box update the used color for the small pie
-            requestGui["EditSmallColorBox"].OnEvent("Change", ChangeSmallPieColor)
+            requestGui["EditSmallColorBox"].OnEvent("Change", "ChangeSmallPieColor")
 
             ; When the dropbox changes dor distance, set new sizes
-            requestGui["DrawSection_1_value"].OnEvent("Change", SetSize)
+            requestGui["DrawSection_1_value"].OnEvent("Change", "SetSize")
             ; When the dropbox changes for direction, set new direction
-            requestGui["DrawSection_2_value"].OnEvent("Change", SetDirection)
+            requestGui["DrawSection_2_value"].OnEvent("Change", "SetDirection")
 
             ; Add an event handler for the drawing button
-            requestGui["Draw"].OnEvent("Click", Draw)
+            requestGui["Draw"].OnEvent("Click", "Draw")
             ; Add an event handler for the clear button
-            requestGui["Clear"].OnEvent("Click", Clear)
+            requestGui["Clear"].OnEvent("Click", "Clear")
             ; Add an event handler for the exit button
             requestGui["Exit"].OnEvent("Click", props.Drawn ? ExitProgram : ExitWithoutGraphics)
         

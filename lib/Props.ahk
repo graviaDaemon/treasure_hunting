@@ -8,8 +8,8 @@ class Props {
         this.pieRadius := 0 ; The start rotation will always face north, so -120 degrees is when the pie slice faces north
         this.largePieColorString := "000000"
         this.smallPieColorString := "FFFFFF"
-        this.largePieColorHex := this.ParseToHex("0xFF000000")
-        this.smallPieColorHex := this.ParseToHex("0xFFffffff")
+        this.largePieColorHex := this.__ParseToHex("0xFF000000")
+        this.smallPieColorHex := this.__ParseToHex("0xFFffffff")
         ;#endregion
 
         ;#region Map Properties
@@ -30,14 +30,16 @@ class Props {
     */
     SetScreenSize(w) {
         this.screenSize := w
-        requestGui["InfoSection_1_value"].Text := this.screenSize " x" this.screenSize
+        this.__SetNewText("InfoSection_1_value", this.screenSize " x" this.screenSize)
     }
 
     SetTileSize(size) {
         this.mapSize := size
         this.tileSize := this.screenSize / size
-        requestGui["InfoSection_2_value"].Text := size " x " size
-        requestGui["InfoSection_8_value"].Text := this.tileSize " Pixels per tile"
+        this.__SetNewText("InfoSection_2_value", size " x " size)
+        this.__SetNewText("InfoSection_8_value", this.tileSize " Pixels per tile")
+        
+       
     }
     
     ; Set the size of the two pie slices.
@@ -47,47 +49,52 @@ class Props {
         this.sizeLargePie := (this.tileSize * l) * 2
         ; (times 2 because it draws this as diameter, instead of radius)
         this.sizeSmallPie := (this.tileSize * s) * 2
-        requestGui["InfoSection_3_value"].Text := l " Tiles"
-        requestGui["InfoSection_4_value"].Text := s " Tiles"
+        this.__SetNewText("InfoSection_3_value", l " Tiles")
+        this.__SetNewText("InfoSection_4_value", s " Tiles")
     }
 
     ; Set the direction the pie slice should face
     SetDirection(r) {
         this.pieRadius := r
-        requestGui["InfoSection_5_value"].Text := FigureDirection(r)
+        this.__SetNewText("InfoSection_5_value", FigureDirection(r))
     }
 
     ; Sets the X Coordinates in this class
     SetXCoord(value) {
         this.xPosition := value
-        requestGui["InfoSection_6_value"].Text := this.xPosition
+        this.__SetNewText("InfoSection_6_value", this.xPosition)
     }
 
     ; Sets the Y Coordinates in this class
     SetYCoord(value) {
         this.yPosition := value
-        requestGui["InfoSection_7_value"].Text := this.yPosition
+        this.__SetNewText("InfoSection_7_value", this.yPosition)
     }
 
     SetLargePieColor(color) {
         this.largePieColorString := color
-        this.largePieColorHex := 0xFF000000 | this.ParseToHex(color)
-        requestgui["InfoSection_9_value"].Text := "#" this.largePieColorString
-        requestgui["InfoSection_9_value"].SetFont("c" this.largePieColorString)
+        this.largePieColorHex := 0xFF000000 | this.__ParseToHex(color)
+        this.__SetNewText("InfoSection_9_value", "#" this.largePieColorString, "c" this.largePieColorString, true)
     }
 
     SetSmallPieColor(color) {
         this.smallPieColorString := color
-        this.smallPieColorHex := 0xFF000000 | this.ParseToHex(color)
-        requestGui["InfoSection_10_value"].Text := "#" this.smallPieColorString
-        requestGui["InfoSection_10_value"].SetFont("c" this.smallPieColorString)
+        this.smallPieColorHex := 0xFF000000 | this.__ParseToHex(color)
+        this.__SetNewText("InfoSection_10_value", "#" this.smallPieColorString, "c" this.smallPieColorString, true)
     }
 
-    ParseToHex(str) {
+    __ParseToHex(str) {
         VarSetStrCapacity(&s, 66)
         value := DllCall("msvcrt.dll\_wcstoui64", "Str", str, "UInt", 0, "UInt", 16, "CDECL Int64")
         DllCall("msvcrt.dll\_i64tow", "Int64", value, "Str", s, "UInt", 10, "CDECL")
         Return s
+    }
+
+    __SetNewText(title, value, fontValue?, font := false) {
+        requestGui[title].Text := value
+        if (font) {
+            requestGui[title].SetFont(fontValue)
+        }
     }
 }
 
