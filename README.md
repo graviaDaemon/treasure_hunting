@@ -2,13 +2,13 @@
 The script is a standalone program `.exe` file, but it does require the external map mod to run while running Wurm Unlimited.
 You can find that mod here: https://github.com/Snidor/ExternalMapMod/releases/tag/0.2.1
 
-Set the external map to 1000 pixels by 1000 pixels (which is what I am basing all tile calculations of at the moment)
-you can do this by pressing F1 in game and running the command `toggleexternalmap 1000`.
+Set the external map to your desired size, and make sure to check the settigs tab to set the size in there too! The default size of the hunting program is 1000x1000 pixels.
+You can set your external map to the default size by running the `toggleexternalmap 1000` in the console ingame.
 
-After this you can run the `hunt-v[version].exe` file.
+In the `hunt.exe` file head over to the settings tab, and set the proper external screen size to the same size you've set it ingame.
+Here you can check out any additional setings you might want to update. For example, if you're on Caza, set the ingame map size to 2K!
 
-Here you'll see a UI that looks like this: https://imgur.com/a/mpB2A3L
-Here you can select the distance based on the treasure map reading. And the direction based on your orientation, and directions on the treasure map.
+At the "Drawing" tab you can select the distance based on the treasure map reading. And the direction based on your orientation, and directions on the treasure map.
 For example:
 you face north, and you get a reading that states: `The marked spot is very far away ahead of you to the right`
 This means you select "Very far" from the first dropdown, and "North-East" from the second dropdown
