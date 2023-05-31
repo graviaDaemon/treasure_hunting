@@ -35,6 +35,8 @@ Happy hunting!
 - Add information to the window, to show what the current settings are, and which message is displayed (COMPLETE)
 - Replace the dropdown selection with a "copy map line here" text box
 - Add color picker for the smaller and larger pie slice (COMPLETE)
+- Add the option to read multiple maps at the same time, which makes all of them drawn on screen
+- Add a data analysis based on treasure map QL where a loot table/enemy table will be shown with % chance of drops
 
 ### Map related additions 
 - Incorporate own external map window (If possible) Maybe by using the Sklotopolis live map from browser
