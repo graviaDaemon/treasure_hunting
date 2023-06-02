@@ -17,7 +17,7 @@ JustTheBasics() {
         MsgBox "GdiPlus failed to start. Please ensure you have gdiplus on your system", "Error"
         ExitApp
     }
-    OnExit(ExitProgram)
+    OnExit mapProps.Drawn ? ExitProgram : ExitWithoutGraphics
     return    
 }
 

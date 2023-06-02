@@ -4,7 +4,7 @@
 */
 CreateGui(props, eventObj) {
     ; Create the GUI
-    global requestGui := Gui("MaxSize1000x1000 +Resize", "InputRequest", eventObj)
+    global requestGui := Gui("MaxSize1000x1000 +Resize -MaximizeBox", "Gravia Daemon's Treasure Hunters", eventObj)
 
     ;#region GUI Controls
     ; Prepare the tab names, and their respective tab sections
@@ -12,44 +12,7 @@ CreateGui(props, eventObj) {
 
         ;#region Tab_Readme
 
-        ; Use the readme tab
-        requestGui["Tabs"].UseTab(1)
         
-        ; The title of this tab
-        requestGui.Add("Text", "h30 w600 vReadmeTitle Section", "How to use this program")
-        requestGui["ReadmeTitle"].SetFont("bold s18")
-        
-        ; The header for the info tab explanation
-        requestGui.Add("Text", "h30 w600 vReadMeHeader1 XS ", "Info Tab")
-        requestGui["ReadmeHeader1"].SetFont("bold s12")
-        requestGui.Add("Text", "vReadMeHeader1Body XS", "
-        (
-            Here you can find all settings set to what you have set them. Distance, Direction, map size, colours, and more`n`n
-        )")
-
-        ; The header for the drawing tab explanatin
-        requestGui.Add("Text", "h30 w600 vReadMeHeader2 XS", "Drawing Tab")
-        requestGui["ReadmeHeader2"].SetFont("bold s12")
-        requestGui.Add("Text", "vReadMeHeader2Body XS", "
-        (
-            In the drawing tab you'll find two options, direction and distance.
-            You read the map in game facing a direction of your choosing, and wait for the message for the location to pop up.
-            For example when you face north you get: 'The marked spot is very far away ahead of you to the right'.
-            This means you select distance 'Far Away' and direction should be set to 'North-East'.
-            Now you can click the Draw button, and the program will do the rest!`n`n
-        )")
-
-        ; The header for the settings tab explanatin
-        requestGui.Add("Text", "h30 w600 vReadMeHeader3 XS", "Settings Tab")
-        requestGui["ReadmeHeader3"].SetFont("bold s12")
-        requestGui.Add("Text", "vReadMeHeader3Body XS", "
-        (
-            In here you will find all kinds of useful settings, like the ingame map size of 1 through 32k maps,
-            the size of the external map you're using (noted by the ingame command 'toggleexternalmap 1111' where the '1111' part is the value you put in the setting here,
-            the colours for the smaller and larger pie slices;
-            To pick a colour please get a hex from google's color picker (for example '#000000') and paste everything in the box
-            leave the '#' and just take the numbers/letters in there.`n`n
-        )")
         ;#endregion
 
         ;#region Tab_Info
@@ -60,17 +23,6 @@ CreateGui(props, eventObj) {
         ; Info tab basic title
         requestGui.Add("Text", "h30 w600 vInfoSection Section", "Basic Information")
         requestGui["InfoSection"].SetFont("bold s18")
-
-        ; Info tab info_1
-        requestGui.Add("Text", "vInfoSection_1 XS Section w150", "External Map Size:")
-        requestGui["InfoSection_1"].SetFont("underline")
-        requestGui.Add("Text", "vInfoSection_1_value YS w200", props.screenSize " x" props.screenSize)
-        requestGui["InfoSection_1_value"].Opt("+Redraw")
-
-        requestGui.Add("Text", "vInfoSection_2 XS Section w150", "Ingame Map Size:")
-        requestGui["InfoSection_2"].SetFont("underline")
-        requestGui.Add("Text", "vInfoSection_2_value YS w200", props.mapSize " x" props.mapSize)
-        requestGui["InfoSection_2_value"].Opt("+Redraw")
 
         requestGui.Add("Text", "vInfoSection_3 XS Section w150", "Large Slice:")
         requestGui["InfoSection_3"].SetFont("underline")
@@ -86,21 +38,6 @@ CreateGui(props, eventObj) {
         requestGui["InfoSection_5"].SetFont("underline")
         requestGui.Add("Text", "vInfoSection_5_value YS w200", FigureDirection(props.pieRadius))
         requestGui["InfoSection_5_value"].Opt("+Redraw")
-
-        requestGui.Add("Text", "vInfoSection_6 XS Section w150", "Player X Position:")
-        requestGui["InfoSection_6"].SetFont("underline")
-        requestGui.Add("Text", "vInfoSection_6_value YS w200", props.xPosition)
-        requestGui["InfoSection_6_value"].Opt("+Redraw")
-
-        requestGui.Add("Text", "vInfoSection_7 XS Section w150", "Player Y Position:")
-        requestGui["InfoSection_7"].SetFont("underline")
-        requestGui.Add("Text", "vInfoSection_7_value YS w200", props.yPosition)
-        requestGui["InfoSection_7_value"].Opt("+Redraw")
-
-        requestGui.Add("Text", "vInfoSection_8 XS Section w150", "Tile size: ")
-        requestGui["InfoSection_8"].SetFont("underline")
-        requestGui.Add("Text", "vInfoSection_8_value YS w200", props.tileSize " Pixels per tile")
-        requestGui["InfoSection_8_value"].Opt("+Redraw")
 
         requestGui.Add("Text", "vInfoSection_9 XS Section w150", "Large pie color: ")
         requestGui["InfoSection_9"].SetFont("underline")
@@ -176,7 +113,6 @@ CreateGui(props, eventObj) {
             requestGui.Add("Button", "w100 h25 vClear YS", "Clear")
             ; Add a button to exit the program manually
             requestGui.Add("Button", "w100 h25 vExit YS", "Exit")
-        
             ;#endregion
 
             ;#region EventHandlers
@@ -203,7 +139,9 @@ CreateGui(props, eventObj) {
             ; Add an event handler for the clear button 
             requestGui["Clear"].OnEvent("Click", "ClearEvent") ; Click Event
             ; Add an event handler for the exit button
-            requestGui["Exit"].OnEvent("Click", props.Drawn ? ExitProgram : ExitWithoutGraphics) ; Click Event
+            requestGui["Exit"].OnEvent("Click", "CloseEvent") ; Click Event
+
+            requestGui.OnEvent("Close", "CloseEvent") ; Closing up event
         
             ;#endregion
 

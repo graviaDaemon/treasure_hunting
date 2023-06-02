@@ -1,13 +1,15 @@
-#Include <GuiSetup>
+#Include <HuntGui>
 #Include <Hunt>
 
 class Handler {
-    __New(myP) {
-        this.myP := myP
+    __New(mp, pp := [PieProperties("Map 1"), PieProperties("Map 2")]) {
+        this.MapProps := mp
+        this.PieProps := pp ; pp has to be an array of pie slices
+        this.HuntGraphic := HuntGui(mp, pp)
     }
 
-    static OpenGui(eventObj) {
-        CreateGui(myP, eventObj)
+    OpenGui(eventObj) {
+        this.HuntGraphic.Create(eventObj)
     }
     
     ; ########## START: Methods ##########
@@ -34,6 +36,17 @@ class Handler {
         else
             MsgBox "Nothing was drawn yet, so nothing is cleared", "Warning"
         return
+    }
+
+    CloseEvent(btn, btnparams := unset) {
+        if MsgBox("Are you sure you want to close the treasure hunt?","Are you leaving?", "YesNo") != "No" {
+            if mapProps.Drawn 
+                ExitProgram("Close",20)
+            else 
+                ExitWithoutGraphics("Close",21)
+        } else {
+            return true
+        }
     }
 
     ; Sets the size based on the dropdown value, which in the Props class sets the right sizes

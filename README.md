@@ -46,6 +46,13 @@ Happy hunting!
 
 # Changelog (based on commits)
 
+## v2.0.4-Alpha1
+### Features
+- Added a prompt when closing to make sure that's what you wanted
+
+### Bugfixes
+- Updated the methods for closing the program which fixed an issue where the slices would still be drawn on screen. Now they should always be removed
+
 ## v2.0.3-Alpha1
 ### Features
 - Made sure when a new color is set, the drawing would be redrawn with the new color

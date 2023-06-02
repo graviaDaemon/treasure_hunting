@@ -2,7 +2,7 @@
 
 class Hunt {
 ; ########## START: Variables ##########
-    props := Props ; this is its own class, included at the top
+    props := BaseProperties ; this is its own class, included at the top
     skloWindow := 0
 ; ########## END:   Variables ##########
     __New(props) {
