@@ -47,21 +47,12 @@ class Hunt {
         ; Create the first brush for the smaller pie slice. Which we set to white now. 
         pBrush := Gdip_CreatePen(this.props.smallPieColorHex, 3)
 
-        
-        
-
-        ; The y position is set here, minus the radius of the circle that is being drawn
-        ; I figured out that the pie slices are being cut from a circle
-        ; So I get the radius of said circle, and move the center of the circle to the actual y coordinate
-        ; by subtracting the radius from the yPosition.
-        ; We also remove 8 tiles from the x position, to get to the center of the square on the external map
-
         ; Draw the pie slice with the set parameters
         Gdip_DrawPie(
             graphics, ; The graphic to draw in 
             pBrush, ; The brush to use
-            this.__GetAbsoluteCoord(this.props.xPosition), ; The calculated absolute x coordinate point
-            this.__GetAbsoluteCoord(this.props.yPosition), ; the calculated absolute y coordinate point
+            this.__GetAbsoluteCoord(this.props.xPosition, this.props.sizeSmallPie), ; The calculated absolute x coordinate point
+            this.__GetAbsoluteCoord(this.props.yPosition, this.props.sizeSmallPie), ; the calculated absolute y coordinate point
             this.props.sizeSmallPie, ; the smaller pie size is set here as the width 
             this.props.sizeSmallPie, ; the smaller pie size is set here as the height
             ; The direction is set here where the pieRadius property is in steps of 45 degrees
@@ -78,8 +69,8 @@ class Hunt {
         Gdip_DrawPie(
             graphics, 
             pBrush, 
-            this.props.xPosition - ((this.props.sizeLargePie / 2) - (this.props.tileSize * 8)), 
-            this.props.yPosition - ((this.props.sizeLargePie / 2) - (this.props.tileSize * 8)), 
+            this.__GetAbsoluteCoord(this.props.xPosition, this.props.sizeLargePie), ; The calculated absolute x coordinate point
+            this.__GetAbsoluteCoord(this.props.yPosition, this.props.sizeLargePie), ; The calculated absolute y coordinate point
             this.props.sizeLargePie, 
             this.props.sizeLargePie, 
             this.props.pieRadius + -112.5,
@@ -103,8 +94,8 @@ class Hunt {
     ; So I get the radius of said circle, and move the center of the circle to the actual coordinate
     ; by subtracting the radius from the axisPosition.
     ; We also remove 8 tiles from the x position, to get to the center of the square on the external map
-    __GetAbsoluteCoord(axisCoord) {
-        return axisCoord - ((this.props.sizeSmallPie / 2) - (this.props.tileSize * 8))
+    __GetAbsoluteCoord(axisCoord, size) {
+        return axisCoord - ((size / 2) - (this.props.tileSize * 8))
     }
 }
 

@@ -45,7 +45,7 @@ class Props {
     ; Set the size of the two pie slices.
     ; Multiply by 2, because this looks to use half of the tile size we need 
     ; This is a quick fix, check the math!
-    SetSize(l, s) {
+    SetDistance(l, s) {
         this.sizeLargePie := (this.tileSize * l) * 2
         ; (times 2 because it draws this as diameter, instead of radius)
         this.sizeSmallPie := (this.tileSize * s) * 2

@@ -155,11 +155,9 @@ CreateGui(props, eventObj) {
 
         requestGui.Add("Text", "h25 w150 XS Section vLargePieColor", "Pick a color (Large pie): ")
         requestGui.Add("Edit", "vEditLargeColorBox h25 w200 YS", "000000")
-        requestGui.Add("Text", "h25 w150 YS", "NOT IMPLEMENTED YET")
 
         requestGui.Add("Text", "h25 w150 XS Section vSmallPieColor", "Pick a color (Small pie): ")
         requestGui.Add("Edit", "vEditSmallColorBox h25 w200 YS", "ffffff")
-        requestGui.Add("Text", "h25 w150 YS", "NOT IMPLEMENTED YET")
         ; TODO: Add setting for map screen size
         
         ;#endregion
@@ -184,28 +182,28 @@ CreateGui(props, eventObj) {
             ;#region EventHandlers
         
             ; On change of this box, set the tile size anew
-            requestGui["IngameMapSize_value"].OnEvent("Change", "ChangeTileSize")
+            requestGui["IngameMapSize_value"].OnEvent("Change", "ChangeTileSizeEvent") ; Dropdown event
             ; On change of the text box, set the window size anew
-            requestGui["ScreenSizeSetting_Num_value"].OnEvent("Change", "ChangeScreenSize")
+            requestGui["ScreenSizeSetting_Num_value"].OnEvent("Change", "ChangeScreenSizeEvent") ; UpDown event
             ; or
-            requestGui["ScreenSizeSetting_Text_value"].OnEvent("Change", "ChangeScreenSize")
+            requestGui["ScreenSizeSetting_Text_value"].OnEvent("Change", "ChangeScreenSizeEvent") ; EditBox Event
 
             ; OnChange of color box update the used color for the large pie
-            requestGui["EditLargeColorBox"].OnEvent("Change", "ChangeLargePieColor")
+            requestGui["EditLargeColorBox"].OnEvent("Change", "ChangeLargePieColor") ; EditBox Event
             ; OnChange of color box update the used color for the small pie
-            requestGui["EditSmallColorBox"].OnEvent("Change", "ChangeSmallPieColor")
+            requestGui["EditSmallColorBox"].OnEvent("Change", "ChangeSmallPieColor") ; EditBox Event
 
             ; When the dropbox changes dor distance, set new sizes
-            requestGui["DrawSection_1_value"].OnEvent("Change", "SetSize")
+            requestGui["DrawSection_1_value"].OnEvent("Change", "SetDistanceEvent") ; Dropdown Event
             ; When the dropbox changes for direction, set new direction
-            requestGui["DrawSection_2_value"].OnEvent("Change", "SetDirection")
+            requestGui["DrawSection_2_value"].OnEvent("Change", "SetDirectionEvent") ; Dropdown Event
 
             ; Add an event handler for the drawing button
-            requestGui["Draw"].OnEvent("Click", "Draw")
-            ; Add an event handler for the clear button
-            requestGui["Clear"].OnEvent("Click", "Clear")
+            requestGui["Draw"].OnEvent("Click", "DrawEvent") ; Click Event
+            ; Add an event handler for the clear button 
+            requestGui["Clear"].OnEvent("Click", "ClearEvent") ; Click Event
             ; Add an event handler for the exit button
-            requestGui["Exit"].OnEvent("Click", props.Drawn ? ExitProgram : ExitWithoutGraphics)
+            requestGui["Exit"].OnEvent("Click", props.Drawn ? ExitProgram : ExitWithoutGraphics) ; Click Event
         
             ;#endregion
 
