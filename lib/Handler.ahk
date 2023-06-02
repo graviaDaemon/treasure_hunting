@@ -1,4 +1,4 @@
-#Include <HuntGui>
+#Include <GraphicUserInterface\HuntGui>
 #Include <Hunt>
 
 class Handler {
