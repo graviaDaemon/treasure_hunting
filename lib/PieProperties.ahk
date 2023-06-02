@@ -15,13 +15,13 @@ class PieProperties extends BaseProperties {
     SetLargePieColor(color) {
         this.largePieColorString := color
         this.largePieColorHex := 0xFF000000 | this.__ParseToHex(color)
-        this.__SetNewText("InfoSection_9_value", "#" this.largePieColorString, "c" this.largePieColorString, true)
+        ; this.__SetNewText("InfoSection_9_value", "#" this.largePieColorString, "c" this.largePieColorString, true)
     }
 
     SetSmallPieColor(color) {
         this.smallPieColorString := color
         this.smallPieColorHex := 0xFF000000 | this.__ParseToHex(color)
-        this.__SetNewText("InfoSection_10_value", "#" this.smallPieColorString, "c" this.smallPieColorString, true)
+        ; this.__SetNewText("InfoSection_10_value", "#" this.smallPieColorString, "c" this.smallPieColorString, true)
     }
 
     ; Set the size of the two pie slices.
@@ -31,13 +31,13 @@ class PieProperties extends BaseProperties {
         this.sizeLargePie := (this.tileSize * l) * 2
         ; (times 2 because it draws this as diameter, instead of radius)
         this.sizeSmallPie := (this.tileSize * s) * 2
-        this.__SetNewText("InfoSection_3_value", l " Tiles")
-        this.__SetNewText("InfoSection_4_value", s " Tiles")
+        ; this.__SetNewText("InfoSection_3_value", l " Tiles")
+        ; this.__SetNewText("InfoSection_4_value", s " Tiles")
     }
 
     ; Set the direction the pie slice should face
     SetDirection(r) {
         this.pieRadius := r
-        this.__SetNewText("InfoSection_5_value", FigureDirection(r))
+        ; this.__SetNewText("InfoSection_5_value", FigureDirection(r))
     }
 }

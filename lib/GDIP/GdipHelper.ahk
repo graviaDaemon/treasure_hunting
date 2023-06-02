@@ -24,7 +24,7 @@ JustTheBasics() {
 /* 
     Setup all the GDI+ items, including the GUI window with the width and height given by the calling objects
 */
-SetupGDIP(iWidth, iHeight) {
+SetupGDIP(iWidth, iHeight, window) {
     global Width := iWidth
     global Height := iHeight
     
@@ -38,7 +38,7 @@ SetupGDIP(iWidth, iHeight) {
 
     JustTheBasics()
 
-    global guiWindow := Gui("-Caption +E0x80000 +LastFound +AlwaysOnTop +ToolWindow +OwnDialogs", "guiWindow")
+    global guiWindow := Gui("-Caption +E0x80000 +LastFound +AlwaysOnTop +ToolWindow +OwnDialogs +Parent" window, "guiWindow")
     guiWindow.Show("NA")
 
     global hwnd := WinExist("guiWindow")

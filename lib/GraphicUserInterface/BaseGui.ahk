@@ -42,13 +42,13 @@ class BaseGui {
         return
     }
 
-    UseTabControl(tabs, name, caseSensitive := true) {
+    UseTabControl(tabs, name, caseSensitive := true) {        
         this.GraphicInterface[tabs].UseTab(name, caseSensitive)
         return
     }
 
-    AddGroupControl(groupOptions, grouptext) {
-        this.GraphicInterface.Add("GroupBox", groupOptions, groupText)
+    AddGroupControl(options, content) {
+        this.GraphicInterface.Add("GroupBox", options, content)
         return
     }
 
@@ -64,29 +64,47 @@ class BaseGui {
                 this.UpdateTextFont(item.Id, item.Header.Font)
             this.AddDropdownControl("v" item.Id " " item.Options, item.Items)
         }
+        return
     }
 
     AddButtonControl(options, content) {
         this.GraphicInterface.Add("Button", options, content)
+        return
     }
 
     AddEditControl(options, content := unset) {
         this.GraphicInterface.Add("Edit", options, IsSet(content) ? content : unset)
+        return
     }
 
     AddUpDownControl(options, content := unset) {
         this.GraphicInterface.Add("UpDown", options, IsSet(content) ? content : unset)
+        return
     }
 
     AddEventHandler(event, function, control := unset) {
-        if !IsSet(control)
+        if !IsSet(control){
+            MsgBox "Adding event handler for base gui" 
             this.GraphicInterface.OnEvent(event, function)
-        else
-            this.GraphicInterface[control].OnEvent(event, function)
+        } else {
+            MsgBox "Adding event handler for: " control.Name
+            this.GraphicInterface[control.Name].OnEvent(event, function)
+        }
+        return
     }
 
-    GetControl(name := unset) {
-        if !IsSet(name) {
+    AddEventHandlers(ids) {
+        for item in ids {
+            if item.HasControl
+                this.AddEventHandler(item.Event, item.Function, item.Control)
+            else
+                this.AddEventHandler(item.Event, item.Function)
+        }
+        return
+    }
+
+    GetControl(name := "") {
+        if StrLen(name) = 0 {
             return this.GraphicInterface
         } else {
             return this.GraphicInterface[name]

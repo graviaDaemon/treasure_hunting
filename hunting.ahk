@@ -1,12 +1,15 @@
 ; Include the Hunt class as well as the Props class
-#Include <Handler>
 #Include <MapProperties>
 #Include <PieProperties>
+#Include <GraphicUserInterface\HuntGui>
 #SingleInstance Force
 
 ; ########## START: Basic Setup ##########
-global mapProps := MapProperties()
+mapProps := MapProperties()
+pieProps := [PieProperties("Map 1"), PieProperties("Map 2")]
 
-eventHand := Handler(mapProps)
-eventHand.OpenGui(eventHand)
+global huntDisplay := Hunt(mapProps, pieProps)
+
+hgui := HuntGui(mapProps, pieProps)
+hgui.Create()
 ; ########## END:   Basic Setup ##########

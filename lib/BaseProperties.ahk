@@ -1,4 +1,3 @@
-#Include <GraphicUserInterface\GuiSetup>
 ; A basic properties object. This class will hold all the properties required for the drawings on screen
 class BaseProperties {
     __New() { 

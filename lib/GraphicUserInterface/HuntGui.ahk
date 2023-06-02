@@ -1,8 +1,8 @@
 #Include <GraphicUserInterface\BaseGui>
-#Include <GraphicUserInterface\TextComponent>
-#Include <GraphicUserInterface\DropdownComponent>
+#Include <GraphicUserInterface\Components\TextComponent>
+#Include <GraphicUserInterface\Components\DropdownComponent>
+#Include <GraphicUserInterface\Components\EventComponent>
 #Include <GraphicUserInterface\GuiEvents>
-#Include <GraphicUserInterface\EventComponent>
 
 class HuntGui {
     __New(mp, pp) {
@@ -12,7 +12,7 @@ class HuntGui {
         this.RGUI := BaseGui("+MinSize600x600 -Resize -MaximizeBox", "Gravia Daemon's Treasure Hunters", eventObj)
     }
 
-    Create(eventObj) {
+    Create() {
         ; Add tabs to the GUI
         this.RGUI.AddTabControl("Center vTabs", ["Readme", "Info", "Drawing", "Settings"])
 
@@ -157,9 +157,9 @@ class HuntGui {
 
         this.RGUI.AddDropdownComponents([
             DropdownComponent(
-                "vIngameMapSizeSetting_value", 
+                "IngameMapSizeSetting_value", 
                 "Choose3 YS w200", 
-                TextComponent("vIngameMapSizeSetting", "Section h25 w150", "Select your ingame map size: "), 
+                TextComponent("IngameMapSizeSetting", "Section h25 w150", "Select your ingame map size: "), 
                 ["1K", "2K", "4K", "8K", "16K", "32K"])
         ])
 
@@ -188,24 +188,27 @@ class HuntGui {
     }
 
     __EventHandlers() {
+        
         events := [
-            EventComponent("Change", "ChangeScreenSizeEvent", this.RGUI.GraphicInterface["ScreenSizeSetting_Text_value"]),
-            EventComponent("Change", "ChangeScreenSizeEvent", this.RGUI.GraphicInterface["ScreenSizeSetting_Num_value"]),
-            EventComponent("Change", "ChangeTileSizeEvent", this.RGUI.GraphicInterface["IngameMapSizeSetting_value"]),
+            EventComponent("Change", "ChangeScreenSizeEvent", this.RGUI.GetControl("ScreenSizeSetting_Text_value")),
+            EventComponent("Change", "ChangeScreenSizeEvent", this.RGUI.GetControl("ScreenSizeSetting_Num_value")),
+            EventComponent("Change", "ChangeTileSizeEvent", this.RGUI.GetControl("IngameMapSizeSetting_value")),
             EventComponent("Close", "CloseEvent")
         ]
         
-        for item in this.PieProps {
-            events.Push([
-                EventComponent("Change", "SetDistanceEvent", this.RGUI.GetControl(item.Id "_Distance_value")),
-                EventComponent("Change", "SetDirectionEvent", this.RGUI.GetControl(item.Id "_Direction_value")),
-                EventComponent("Click", "DrawEvent", this.RGUI.GetControl(item.Id "_Draw")),
-                EventComponent("Click", "ClearEvent", this.RGUI.GetControl(item.Id "_Clear")),
-                EventComponent("Click", "EditMapNameEvent", this.RGUI.GetControl(item.Id "_Edit"))
-
-                EventComponent("Change", "ChangeLargePieColorEvent", this.RGUI.GetControl(item.Id "_ColorPicker_Large_value"))
-                EventComponent("Change", "ChangeSmallPieColorEvent", this.RGUI.GetControl(item.Id "_ColorPicker_Small_value"))
-            ])
+        if (this.PieProps.Length > 0){
+            for item in this.PieProps {
+                Id := StrReplace(item.MapName, A_Space, "", false)
+                events.Push(
+                    EventComponent("Change", "SetDistanceEvent", this.RGUI.GetControl(Id "_Distance_value")),
+                    EventComponent("Change", "SetDirectionEvent", this.RGUI.GetControl(Id "_Direction_value")),
+                    EventComponent("Click", "DrawEvent", this.RGUI.GetControl(Id "_Draw")),
+                    EventComponent("Click", "ClearEvent", this.RGUI.GetControl(Id "_Clear")),
+                    EventComponent("Click", "EditMapNameEvent", this.RGUI.GetControl(Id "_Edit")),
+                    EventComponent("Change", "ChangeLargePieColorEvent", this.RGUI.GetControl(Id "_ColorPicker_Large_value")),
+                    EventComponent("Change", "ChangeSmallPieColorEvent", this.RGUI.GetControl(Id "_ColorPicker_Small_value"))
+                )
+            }   
         }
 
         this.RGUI.AddEventHandlers(events)

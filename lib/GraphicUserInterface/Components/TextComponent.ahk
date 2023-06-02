@@ -1,4 +1,4 @@
-#Include <GraphicUserInterface\BaseComponent>
+#Include <GraphicUserInterface\Components\BaseComponent>
 
 class TextComponent extends BaseComponent {
     __New(id, options, content, font := "") {

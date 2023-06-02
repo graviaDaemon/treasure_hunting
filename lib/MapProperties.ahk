@@ -8,29 +8,30 @@ class MapProperties extends BaseProperties {
 
         this.xPosition := 0 ; double
         this.yPosition := 0 ; double
+        super.Drawn := false
     }
 
     SetScreenSize(w) {
         this.screenSize := w
-        this.__SetNewText("InfoSection_1_value", this.screenSize " x" this.screenSize)
+        ; this.__SetNewText("InfoSection_1_value", this.screenSize " x" this.screenSize)
     }
 
     SetTileSize(size) {
         this.mapSize := size
         this.tileSize := this.screenSize / size
-        this.__SetNewText("InfoSection_2_value", size " x " size)
-        this.__SetNewText("InfoSection_8_value", this.tileSize " Pixels per tile")
+        ; this.__SetNewText("InfoSection_2_value", size " x " size)
+        ; this.__SetNewText("InfoSection_8_value", this.tileSize " Pixels per tile")
     }
 
     ; Sets the X Coordinates in this class
     SetXCoord(value) {
         this.xPosition := value
-        this.__SetNewText("InfoSection_6_value", this.xPosition)
+        ; this.__SetNewText("InfoSection_6_value", this.xPosition)
     }
 
     ; Sets the Y Coordinates in this class
     SetYCoord(value) {
         this.yPosition := value
-        this.__SetNewText("InfoSection_7_value", this.yPosition)
+        ; this.__SetNewText("InfoSection_7_value", this.yPosition)
     }
 }

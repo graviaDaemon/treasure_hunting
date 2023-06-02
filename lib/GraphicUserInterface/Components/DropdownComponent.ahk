@@ -1,4 +1,4 @@
-#Include <GraphicUserInterface\BaseComponent>
+#Include <GraphicUserInterface\Components\BaseComponent>
 
 class DropdownComponent extends BaseComponent {
     __New(id, options, txtComp, items) {

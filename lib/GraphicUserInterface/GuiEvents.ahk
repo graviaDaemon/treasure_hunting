@@ -1,4 +1,5 @@
-#Include <GdipHelper>
+#Include <GDIP\GdipHelper>
+#Include <Hunt>
 
 class GuiEvents {
     __New(mp, pp) {
@@ -7,14 +8,12 @@ class GuiEvents {
     }
 
     DrawEvent(btn, btnparams) {
-        ; global HuntDisplay := Hunt(this.MapProps, this.PieProps)
-
-        ; HuntDisplay.Draw()
+        this.HuntDisplay.Draw()
     }
 
     ClearEvent(btn, btnparams) {
         if this.MapProps.Drawn 
-            huntDisplay.Clear(guiWindow)
+            this.huntDisplay.Clear(guiWindow)
         else
             MsgBox "Nothing was drawn yet, so noting is cleared", "Warning"
         return
